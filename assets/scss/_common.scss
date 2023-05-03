@@ -1,0 +1,950 @@
+/* Reset CSS */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+*{
+	scrollbar-width: thin;
+	scrollbar-color: lighten($color-secondary, $amount: 7) transparent;
+}
+::-webkit-scrollbar{
+	width: 5px;
+}
+::-webkit-scrollbar-thumb{
+	background-color: lighten($color-secondary, $amount: 7);
+}
+
+::selection{
+	color: $color-secondary;
+	background: $color-primary;
+}
+
+html,
+body{
+	scroll-behavior: smooth;
+}
+
+/* Change text & background color */
+body {
+	position: relative;
+	color: $color-white;
+	font-family: $font-secondary;
+	background-color: $color-black;
+	overflow-x: hidden;
+}
+
+a,
+a:hover,
+a:active {
+	text-decoration: none;
+	color: inherit;
+}
+
+button,
+button:hover,
+button:focus,
+button:active {
+	outline: none;
+}
+
+input:-webkit-autofill{
+	-webkit-text-fill-color: $color-gray-soft;
+	transition: background-color 5000s;
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+/* Common Slick Slider Style */
+.slick{
+	&-dots{
+		display: flex;
+		justify-content: center;
+		margin-top: 2rem;
+		margin-bottom: 0;
+		li{
+			&:not(:last-child){
+				margin-right: 1rem;
+			}
+			button{
+				font-size: 0;
+				width: 10px;
+				height: 10px;
+				transform: scale(0.7);
+				background: $color-primary;
+				border: 1px solid $color-primary;
+				border-radius: 50%;
+			}
+			&.slick-active{
+				button{
+					transform: scale(1);
+					background: transparent;
+				}
+			}
+		}
+	}
+}
+
+/* Common Button's Style */
+.primary-btn{
+	color: $color-secondary;
+	font-size: 0.89rem;
+	font-family: $font-secondary;
+	font-weight: 600;
+	padding: 1rem 2rem;
+	background-color: $color-white;
+	overflow: hidden;
+	@extend %transition;
+	&::before{
+		content: "";
+		position: absolute;
+		top: -1px;
+		left: -1px;
+		right: -1px;
+		bottom: -1px;
+		transform: scaleX(1);
+		background-color: $color-primary;
+		transition: transform .3s linear;
+	}
+	&--reversed{
+		background-color: $color-primary;
+		&::before{
+			background-color: $color-gray-soft;
+		}
+	}
+	&:hover,
+	&:focus{
+		color: initial;
+		transform: scale(0.93);
+		&::before{
+			transform: scaleX(0);
+		}
+	}
+}
+
+.back-btn{
+	color: $color-secondary;
+	background-color: $color-primary;
+	font-size: 1.3rem;
+	padding: 0.3rem 0.8rem;
+	@extend %transition;
+	&:hover,
+	&:focus{
+		color: $color-secondary;
+		transform: translateX(-5%);
+	}
+}
+
+/* Scroll To Top Button Style */
+.scroll-top{
+	bottom: 3%;
+	right: 1%;
+	display: none;
+	cursor: pointer;
+	z-index: 7;
+	@include mobile{
+		bottom: 2%;
+	}
+	&__btn{
+		width: 2.8rem;
+		height: 2.8rem;
+		font-size: 1.1rem;
+		color: $color-white;
+		background: rgba(darken($color-primary, $amount: 10), $alpha: 0.8);
+	}
+}
+
+/* Common Section Gap Style */
+.section-gap{
+	padding: 6rem 0;
+	@include tablet{
+		padding: 3rem 0;
+	}
+	@include mobile{
+		padding: 2.4rem 0;
+	}
+}
+
+/* Common Section Heading Style */
+.section-header{
+	font-family: $font-primary;
+	&__title{
+		font-size: 2rem;
+		font-weight: 900;
+		color: $color-primary;
+	}
+}
+
+/* Header Style */
+.header{
+	position: absolute;
+	top: 0;
+	z-index: 99;
+	.navbar{
+		&-brand{
+			color: $color-white;
+			font-size: 1.8rem;
+			font-weight: 400;
+			font-family: $font-primary;
+			padding-bottom: 1rem;
+			@media (max-width: 600px) {
+				margin-left: 1rem;
+			}
+			&::before{
+				content: url(../images/logo-cover.png);
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				transform: translate(-8%, 10%);
+			}
+		}
+		&-toggler{
+			font-size: 1.5rem;
+			color: $color-primary;
+		}
+		&-collapse{
+			@include desktop{
+				background-color: $color-secondary;
+			}
+		}
+		.nav{
+			&-item{
+				margin: 0 .1rem;
+			}
+			&-link{
+				color: $color-white;
+				font-size: 0.89rem;
+				font-family: $font-secondary;
+				padding-left: .8rem;
+				padding-right: .8rem;
+				@extend %transition;
+				&::before{
+					content: "";
+					position: absolute;
+					top: 50%;
+					left: 0;
+					transform: translate(-1%,-50%) scale(0);
+					width: 0.5em;
+					height: 0.5em;
+					background: darken($color-primary, $amount: 30);
+					opacity: 0;
+					transition: linear .25s;
+					transition-property: transform, opacity;
+					@include min-desktop{
+						border-radius: 50%;
+					}
+					@include desktop{
+						top: 80%;
+						left: 50%;
+						transform: translate(-50%,-50%) scaleX(0);
+						width: 20%;
+						height: 0.1em;
+					}
+				}
+				&.active,
+				&:hover,
+				&:focus{
+					&::before{
+						opacity: 1;
+						transform: translate(-1%,-50%) scale(1);
+						@include desktop{
+							transform: translate(-50%,-50%) scaleX(1);
+						}
+					}
+				}
+			}
+		}
+	}
+	&--fixed{
+		position: fixed;
+		transform: translateY(-100%);
+		background-color: $color-secondary;
+		box-shadow: 0 3px 15px rgba($color: #000000, $alpha: 0.16);
+		animation: header_in .4s linear forwards;
+	}
+	&--active{
+		position: fixed;
+		background-color: $color-secondary;
+		box-shadow: 0 3px 15px rgba($color: #000000, $alpha: 0.16);
+	}
+	&--fixer{
+		margin-top: 80px;
+	}
+}
+/* Fixed Header Animation */
+@keyframes header_in{
+	0%{
+		transform: translateY(-100%);
+	}
+	100%{
+		transform: translateY(0);
+	}
+}
+
+/* Banner Style */
+.banner{
+	&::before,
+	&::after{
+		content: "";
+		position: absolute;
+		left: 0;
+		width: 100%;
+	}
+	&::after{
+		bottom: -1px;
+		height: 15%;
+		background: linear-gradient( transparent, rgba($color-black, $alpha: 0.5), $color-black);
+	}
+	&::before{
+		top: -1px;
+		height: 20%;
+		background: linear-gradient( rgba($color-black, $alpha: 0.6), transparent);
+		z-index: 1;
+	}
+	&__slider{
+		&::after{
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: url(../images/pattern.png);
+			background-size: auto;
+			background-repeat: repeat;
+			background-position: center center;
+		}
+	}
+	&__slide{
+		position: relative;
+		background-color: rgba($color: #000000, $alpha: 0.6);
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		height: 40rem;
+		background-blend-mode: overlay;
+		&.slick-active{
+			animation: zoom-in 5s linear forwards;
+		}
+	}
+	&__content{
+		top: 0;
+		left: 0;
+		z-index: 2;
+	}
+	&__title{
+		font-size: 1.8rem;
+		font-weight: 400;
+		font-family: $font-secondary;
+		@include desktop{
+			font-size: 1.5rem;
+		}
+		@include mobile{
+			font-size: 1.3rem;
+		}
+		&__bold{
+			color: $color-primary;
+			font-size: 1.4em;
+			font-weight: 900;
+			font-family: $font-primary;
+		}
+	}
+	.primary-btn{
+		@include mobile{
+			font-size: 0.9rem;
+		}
+	}
+}
+/* Banner Zoom Animation */
+@keyframes zoom-in {
+	0%,100%{
+		transform: scale(1);
+	}
+	50%{
+		transform: scale(1.1);
+	}
+}
+
+/* Sub-Banner Style */
+.sub-banner{
+	padding: 5rem 0;
+	.simpleParallax{
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		&::after{
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba($color: #000000, $alpha: 0.3);
+		}
+	}
+	
+}
+
+/* Influencer Form Style */
+.influencer{
+	&-form-modal{
+		color: $color-white;
+		.modal-content{
+			background-color: $color-secondary;
+			.close{
+				font-size: 2rem;
+				text-shadow: none;
+				opacity: 1;
+			}
+		}
+		&__text{
+			font-size: 0.9rem;
+			color: $color-primary;
+		}
+	}
+	&-form{
+		background-color: $color-secondary;
+		.custom-file{
+			margin-top: -2rem;
+			&-input{
+				width: 0;
+			}
+			&-label{
+				font-size: 5.5rem;
+				cursor: pointer;
+				&::after{
+					display: none;
+				}
+			}
+			&__text{
+				font-size: 1.5rem;
+				font-weight: bold;
+				font-family: $font-secondary;
+			}
+		}
+		.form{
+			&-group{
+				&__icon{
+					position: absolute;
+					top: 0.9rem;
+					left: 0;
+					transform: translateX(60%);
+					color: $color-primary;
+					font-size: 1.2rem;
+				}
+			}
+			&-control{
+				height: 2.9rem;
+				color: $color-gray-soft;
+				padding-left: 2.5rem;
+				background-color: $color-black !important;
+				&::placeholder{
+					color: currentColor;
+				}
+			}
+		}
+		.custom-control{
+			&-input{
+				&:focus ~ .custom-control-label::before{
+					box-shadow: none;
+				}
+				&:checked ~ .custom-control-label{
+					&::before{
+						background-color: $color-primary;
+					}
+				}
+			}
+			&-label{
+				color: $color-white;
+				font-size: 0.9rem;
+				&::before{
+					background-color: $color-black;
+					border: 0;
+					border-radius: 0;
+				}
+			}
+		}
+	}
+}
+
+/* Influencer Form Modal Overlay Style */
+.modal-backdrop{
+	background-color: rgba($color-secondary, $alpha: 0.5);
+	&.show{
+		opacity: 0.8;
+	}
+}
+
+/* Partners Style */
+.partners{
+	&__slider{
+		&::before,
+		&::after{
+			content: "";
+			position: absolute;
+			top: 0;
+			height: 100%;
+			width: 10%;
+			pointer-events: none;
+		}
+		&::before{
+			background: linear-gradient(to right, $color-black, transparent);
+			z-index: 1;
+		}
+		&::after{
+			right: 0;
+			background: linear-gradient(to left, $color-black, transparent);
+		}
+	}
+	&__slide{
+		img{
+			@extend %white-image;
+			@extend %transition;
+		}
+		&:hover,
+		&:focus{
+			img{
+				transform: scale(1.1);
+			}
+		}
+	}
+}
+
+/*=============================================================
+ ###########CSS benefits Block Changed Style###################
+ ============================================================== */
+
+ /*=============================================================
+ ###########CSS benefits Background Image Changed Style###################
+ ============================================================== */
+
+/* Benefits Style */
+.benefits{
+	background: url(../images/bg-pattern.png) repeat center;
+	background-size: contain;
+	background-attachment: fixed;
+	&__block{
+		position: relative;
+		padding: 3rem 2rem;
+		@extend %common-bg;
+		z-index: 1;
+		@include desktop{
+			height: 100%;
+		}
+		&::after{
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba($color-secondary, $alpha: 0.8);
+			z-index: -1;
+			clip-path: circle(30% at 0 100%);
+			transition: clip-path linear .4s;
+		}
+		&:hover{
+			&::after{
+				clip-path: circle(100% at 50% 50%);
+			}
+		}
+	}
+	&__image{
+		width: 5rem;
+		img{
+			@extend %white-image;
+		}
+	}
+	&__text{
+		line-height: 1.8;
+	}
+}
+
+/* Services Style */
+.services{
+	&__slide{
+		margin-right: 1.5rem;
+		@include mobile{
+			margin: 0 1rem;
+		}
+		&__image{
+			&::after{
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: url(../images/pattern.png);
+				background-size: auto;
+				background-repeat: repeat;
+				background-position: center center;
+			}
+			img{
+				object-fit: cover;
+				@extend %transition;
+				max-height: 20rem;
+				@include mobile{
+					max-height: 14rem;
+				}
+			}
+		}
+		&__content{
+			top: 0;
+			left: 0;
+			background: rgba($color-secondary, $alpha: 0.8);
+			opacity: 0;
+			@extend %transition;
+			&__title{
+				font-size: 2rem;
+				font-family: $font-secondary;
+				@include mobile{
+					font-size: 1.5rem;
+				}
+			}
+			&__text{
+				font-size: 0.9rem;
+			}
+		}
+		&:hover,
+		&:focus{
+			.services__slide{
+				&__image img{
+					transform: scale(1.1);
+				}
+				&__content{
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+
+ /*=============================================================
+ ########### Follow Instagram Section ADD###################
+ ============================================================== */
+
+/* Follow Instagram Style */
+.follow{
+	&__slide{
+		&__image{
+			border-width: 0 3px;
+			border-color: $color-black;
+			border-style: solid;
+			&::after{
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba($color-primary, $alpha: 0.7);
+				opacity: 0;
+				@extend %transition;
+			}
+		}
+		&:hover{
+			.follow__slide__image::after{
+				opacity: 1;
+			}
+		}
+	}
+}
+
+ /*=============================================================
+ ########### DOWNLOAD THE APP Section ADD###################
+ ============================================================== */
+
+/* DOWNLOAD THE APP Style */
+.download{
+	&__app{
+		font-size: 4rem;
+		color: $color-primary;
+	}
+}
+
+/* Merchant Form Style */
+.merchant-form{
+	background-color: $color-secondary;
+	padding: 3rem 2rem;
+	z-index: 2;
+	@include mobile{
+		padding: 2rem 1rem;
+		.invalid-tooltip{
+			font-size: 0.7em;
+		}
+	}
+	&__title{
+		color: $color-primary;
+		font-size: 2.5rem;
+		@include mobile{
+			font-size: 1.8rem;
+		}
+	}
+	&__text{
+		font-size: 0.9rem;
+	}
+	.form{
+		&-group{
+			height: 3.5rem;
+			margin-bottom: 2.3rem;
+			&::after{
+				content: "";
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				transform: scaleX(0);
+				width: 100%;
+				height: 1px;
+				background-color: $color-primary;
+			}
+		}
+		&-control{
+			color: $color-white;
+			@extend %common-bg;
+			border-color: darken($color-gray, $amount: 20);
+			caret-color: $color-primary;
+			&::placeholder{
+				color: $color-gray-soft;
+			}
+			&:focus,
+			&:valid{
+				~ .form-line{
+					transform: scaleX(1);
+				}
+			}
+		}
+		&-line{
+			bottom: 0;
+			left: 0;
+			transform: scaleX(0);
+			height: 1px;
+			background-color: $color-primary;
+			@extend %transition;
+		}
+	}
+}
+
+/* Verification Form Style */
+.verification{
+	&-form{
+		padding: 3rem 2rem;
+		z-index: 2;
+		@include mobile{
+			padding: 3rem 1rem;
+		}
+		&__title{
+			color: $color-primary;
+			@include mobile{
+				font-size: 1.5rem;
+			}
+		}
+	}
+}
+
+/* Choose Category Style */
+.category{
+	@include tablet{
+		padding: 2rem 0;
+	}
+	z-index: 2;
+	&__title{
+		color: $color-primary;
+		font-size: 3rem;
+		font-weight: 700;
+		@include mobile{
+			font-size: 1.8rem;
+		}
+	}
+	&__block{
+		padding: 3rem 2rem;
+		@extend %common-bg;
+		box-shadow: 0.3em 0.3em 0 rgba($color-gray-soft, $alpha: 0.26);
+		@extend %transition;
+		@include mobile{
+			padding: 2rem;
+		}
+		&__image{
+			width: 5rem;
+			img{
+				@extend %white-image;
+				min-width: 1rem;
+			}
+		}
+		&__text{
+			font-size: 1.5rem;
+			font-weight: 600;
+			font-family: $font-secondary;
+			@extend %transition;
+		}
+		&:hover,
+		&:focus{
+			transform: translateY(-2%);
+			.category__block__text{
+				color: $color-primary;
+			}
+		}
+	}
+}
+
+/*=============================================================
+ ###########CSS Offer Block Changed Style######################
+ ============================================================== */
+
+/* Category Offers Style */
+.offers{
+	margin-top: 70px;
+	z-index: 2;
+	&__block{
+		padding-bottom: 5rem;
+		margin-bottom: 1.875rem;
+		border-radius: 0.3em;
+		&__image{
+			min-height: 20rem;
+			border-radius: 0.2em;
+			&::after{
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(transparent, rgba($color-black, $alpha: 0.5));
+				border-radius: inherit;
+			}
+			img{
+				top: 0;
+				left: 0;
+				object-fit: cover;
+				@extend %transition;
+			}
+		}
+		&__content{
+			bottom: 0;
+			width: 90%;
+			padding: 2rem 1rem;
+			@extend %common-bg;
+			border-radius: 0.5em;
+		}
+		&__title{
+			font-size: 1.5rem;
+			font-family: $font-secondary;
+		}
+		&__shop{
+			font-size: 0.9rem;
+		}
+		&__open-hours{
+			color: $color-primary;
+			padding: 0.3rem 1rem;
+			border-radius: 5rem;
+			background-color: rgba($color-black, $alpha: 0.5);
+			border: 2px solid rgba($color-primary, $alpha: 0.5);
+			@extend %transition;
+		}
+		&:hover,
+		&:focus{
+			.offers__block{
+				&__image img{
+					transform: scale(1.1);
+				}
+				&__open-hours{
+					color: $color-black;
+					background-color: rgba($color-primary, $alpha: 0.9);
+				}
+			}
+		}
+	}
+}
+
+/*=============================================================
+ ###########CSS rules icon color Changed Style#################
+ ============================================================== */
+
+/* Category Individual Offer Style */
+.individual-offer{
+	z-index: 2;
+	.card{
+		@extend %common-bg;
+		&-header{
+			background-color: lighten($color-secondary, $amount: 10);
+			.collapse-button{
+				color: $color-gray-soft;
+				font-family: $font-secondary;
+				&__icon{
+					color: $color-primary;
+				}
+			}
+		}
+	}
+	&__title{
+		font-size: 2rem;
+		@include tablet{
+			font-size: 1.5rem;
+		}
+	}
+	&__shop{
+		font-size: 0.7em;
+		font-weight: 600;
+		font-family: $font-secondary;
+	}
+	&__text{
+		color: darken($color-gray-soft, $amount: 10);
+		font-size: 0.99rem;
+		@include mobile{
+			font-size: 0.89rem;
+		}
+	}
+	.primary-btn{
+		@include min-tablet{
+			max-width: 15rem;
+		}
+	}
+	.rules{
+		&-item{
+			margin-bottom: 1rem;
+		}
+		&-icon{
+			color: $color-primary;
+		}
+	}
+}
+
+/* Footer Style */
+.footer{
+	background-color: $color-secondary;
+	.social{
+		cursor: default;
+		&__links{
+			position: relative;
+			transform: scale(1);
+			width: 2.8rem;
+			height: 2.8rem;
+			border: 1px solid $color-primary;
+			color: $color-primary;
+			font-size: 1rem;
+			@extend %transition;
+			&:hover,
+			&:focus{
+				color: $color-black;
+				background-color: darken($color-primary, $amount: 10);
+				transform: scale(0.9);
+			}
+		}
+	}
+	.copyright{
+		font-size: 0.8rem;
+		&__link{
+			&:hover,
+			&:focus{
+				text-decoration: underline $color-primary;
+			}
+		}
+	}
+}
